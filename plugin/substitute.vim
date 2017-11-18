@@ -12,6 +12,9 @@ function! s:parse_substitute(bang, args)
 
   " Load hits into the quickfix window
   execute 'silent grep! ' . shellescape(l:substitute.search) . ' ' . l:grep_args
+
+  " Apply substitute command to every hit
+  execute 'cdo s' . l:substitute.command
 endfunction
 
 function! s:parse_substitute_command(command)
