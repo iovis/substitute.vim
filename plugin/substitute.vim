@@ -10,8 +10,8 @@ function! s:parse_substitute(bang, args)
   let l:substitute = s:parse_substitute_command(l:parsed_args[0])
   let l:grep_args = join(l:parsed_args[1:])
 
-  echo l:substitute
-  echo l:grep_args
+  " Load hits into the quickfix window
+  execute 'silent grep! ' . shellescape(l:substitute.search) . ' ' . l:grep_args
 endfunction
 
 function! s:parse_substitute_command(command)
