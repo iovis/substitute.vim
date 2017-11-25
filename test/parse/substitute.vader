@@ -12,6 +12,13 @@ Execute (s/search\/with\/separator/replace/gc):
   AssertEqual sub_obj.replace, 'replace'
   AssertEqual sub_obj.args,    'gc'
 
+Execute (s/\<search\>/replace/gc):
+  let sub_obj = substitute#parse#substitute('/\<search\>/replace/gc')
+
+  AssertEqual sub_obj.search,  '\<search\>'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
+
 Execute (s/search\\\/escaped/replace/gc):
   let sub_obj = substitute#parse#substitute('/search\\\/escaped/replace/gc')
 

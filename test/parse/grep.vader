@@ -1,11 +1,90 @@
 Execute (search):
   let grep_obj = substitute#parse#grep('search', [])
 
+  AssertEqual grep_obj.very_magic, 0
   AssertEqual grep_obj.search, 'search'
   AssertEqual grep_obj.args,   ''
 
 Execute (search -Q --ruby test/*):
   let grep_obj = substitute#parse#grep('search', ['-Q', '--ruby', 'test/*'])
 
+  AssertEqual grep_obj.very_magic, 0
   AssertEqual grep_obj.search, 'search'
   AssertEqual grep_obj.args,   '-Q --ruby test/*'
+
+Execute (\<search\>):
+  let grep_obj = substitute#parse#grep('\<search\>', [])
+
+  AssertEqual grep_obj.very_magic, 0
+  AssertEqual grep_obj.search, '\bsearch\b'
+  AssertEqual grep_obj.args,   ''
+
+Execute (\vsearch()):
+  let grep_obj = substitute#parse#grep('\vsearch()', [])
+
+  AssertEqual grep_obj.very_magic, 1
+  AssertEqual grep_obj.search, 'search()'
+  AssertEqual grep_obj.args,   ''
+
+Execute (search\(\)):
+  let grep_obj = substitute#parse#grep('search\(\)', [])
+
+  AssertEqual grep_obj.very_magic, 0
+  AssertEqual grep_obj.search, 'search()'
+  AssertEqual grep_obj.args,   ''
+
+Execute (\v(asdf|fdsa)):
+  let grep_obj = substitute#parse#grep('\v(asdf|fdsa)', [])
+
+  AssertEqual grep_obj.very_magic, 1
+  AssertEqual grep_obj.search, '(asdf|fdsa)'
+  AssertEqual grep_obj.args,   ''
+
+Execute (\(asdf\|fdsa\)):
+  let grep_obj = substitute#parse#grep('\(asdf\|fdsa\)', [])
+
+  AssertEqual grep_obj.very_magic, 0
+  AssertEqual grep_obj.search, '(asdf|fdsa)'
+  AssertEqual grep_obj.args,   ''
+
+Execute (\vasdf{2,3}):
+  let grep_obj = substitute#parse#grep('\vasdf{2,3}', [])
+
+  AssertEqual grep_obj.very_magic, 1
+  AssertEqual grep_obj.search, 'asdf{2,3}'
+  AssertEqual grep_obj.args,   ''
+
+Execute (asdf\{2,3\}):
+  let grep_obj = substitute#parse#grep('asdf\{2,3\}', [])
+
+  AssertEqual grep_obj.very_magic, 0
+  AssertEqual grep_obj.search, 'asdf{2,3}'
+  AssertEqual grep_obj.args,   ''
+
+Execute (\v[a-z]+):
+  let grep_obj = substitute#parse#grep('\v[a-z]+', [])
+
+  AssertEqual grep_obj.very_magic, 1
+  AssertEqual grep_obj.search, '[a-z]+'
+  AssertEqual grep_obj.args,   ''
+
+Execute ([a-z]\+):
+  let grep_obj = substitute#parse#grep('[a-z]\+', [])
+
+  AssertEqual grep_obj.very_magic, 0
+  AssertEqual grep_obj.search, '[a-z]+'
+  AssertEqual grep_obj.args,   ''
+
+Execute (\v[a-z]?):
+  let grep_obj = substitute#parse#grep('\v[a-z]?', [])
+
+  AssertEqual grep_obj.very_magic, 1
+  AssertEqual grep_obj.search, '[a-z]?'
+  AssertEqual grep_obj.args,   ''
+
+Execute ([a-z]\?):
+  let grep_obj = substitute#parse#grep('[a-z]\?', [])
+
+  AssertEqual grep_obj.very_magic, 0
+  AssertEqual grep_obj.search, '[a-z]?'
+  AssertEqual grep_obj.args,   ''
