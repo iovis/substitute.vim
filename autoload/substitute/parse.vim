@@ -19,3 +19,12 @@ function! substitute#parse#substitute(command) abort
 
   return l:substitute
 endfunction
+
+function! substitute#parse#grep(search, grep_args) abort
+  let l:grep = {}
+  let l:grep.args = escape(join(a:grep_args, ' '), '|#%')
+
+  let l:grep.search = a:search
+
+  return l:grep
+endfunction

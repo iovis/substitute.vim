@@ -1,0 +1,11 @@
+Execute (search):
+  let grep_obj = substitute#parse#grep('search', [])
+
+  AssertEqual grep_obj.search, 'search'
+  AssertEqual grep_obj.args,   ''
+
+Execute (search -Q --ruby test/*):
+  let grep_obj = substitute#parse#grep('search', ['-Q', '--ruby', 'test/*'])
+
+  AssertEqual grep_obj.search, 'search'
+  AssertEqual grep_obj.args,   '-Q --ruby test/*'

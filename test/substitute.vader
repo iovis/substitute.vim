@@ -1,3 +1,4 @@
 Include: include/setup.vader
 
 Include (substitute#parse#substitute): parse/substitute.vader
+Include (substitute#parse#grep): parse/grep.vader
