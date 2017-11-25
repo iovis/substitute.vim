@@ -1,0 +1,3 @@
+Execute:
+  source autoload/substitute.vim
+  source autoload/substitute/parse.vim

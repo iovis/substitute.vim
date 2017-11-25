@@ -1,8 +1,8 @@
 function! substitute#parse#substitute(command) abort
   let l:substitute = {}
 
-  let l:substitute.command = a:command
-  let l:substitute.separator = l:substitute.command[0]
+  let l:substitute.command = 's' . a:command
+  let l:substitute.separator = l:substitute.command[1]
 
   " '\\\@<!' => Match '/', but not '\/'
   let l:regexp = '\\\@<!'

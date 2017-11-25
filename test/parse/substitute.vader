@@ -1,0 +1,140 @@
+Execute (s/search/replace/gc):
+  let sub_obj = substitute#parse#substitute('/search/replace/gc')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
+
+Execute (s/search\/with\/separator/replace/gc):
+  let sub_obj = substitute#parse#substitute('/search\/with\/separator/replace/gc')
+
+  AssertEqual sub_obj.search,  'search\/with\/separator'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
+
+Execute (s/search\\\/escaped/replace/gc):
+  let sub_obj = substitute#parse#substitute('/search\\\/escaped/replace/gc')
+
+  AssertEqual sub_obj.search,  'search\\\/escaped'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
+
+" /
+" \/
+" \\/
+" \\\/
+" \\\\/
+" \\\\\/
+" \\\\\\/
+" a/
+" a\/
+" a\\/
+" a\\\/
+" a\\\\/
+" a\\\\\/
+" a\\\\\\/
+" TODO try with let l:regexp = '\([^\\]\(\\\{2\}\)*\)\@<=\'
+" Execute (s/search\\/replace/gc):
+"   let sub_obj = substitute#parse#substitute('/search\\/replace/gc')
+
+"   AssertEqual sub_obj.search,  'search\\'
+"   AssertEqual sub_obj.replace, 'replace'
+"   AssertEqual sub_obj.args,    'gc'
+
+Execute (s/search/replace/):
+  let sub_obj = substitute#parse#substitute('/search/replace/')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    ''
+
+Execute (s/search/replace):
+  let sub_obj = substitute#parse#substitute('/search/replace')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    ''
+
+Execute (s/search//gc):
+  let sub_obj = substitute#parse#substitute('/search//gc')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    'gc'
+
+Execute (s/search//):
+  let sub_obj = substitute#parse#substitute('/search//')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    ''
+
+Execute (s/search):
+  let sub_obj = substitute#parse#substitute('/search')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    ''
+
+Execute (s//replace/gc):
+  let sub_obj = substitute#parse#substitute('//replace/gc')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
+
+Execute (s//replace/):
+  let sub_obj = substitute#parse#substitute('//replace/')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    ''
+
+Execute (s//replace):
+  let sub_obj = substitute#parse#substitute('//replace')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    ''
+
+Execute (s///gc):
+  let sub_obj = substitute#parse#substitute('///gc')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    'gc'
+
+Execute (s///):
+  let sub_obj = substitute#parse#substitute('///')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    ''
+
+Execute (s//):
+  let sub_obj = substitute#parse#substitute('//')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    ''
+
+Execute (s/):
+  let sub_obj = substitute#parse#substitute('/')
+
+  AssertEqual sub_obj.search,  @/
+  AssertEqual sub_obj.replace, ''
+  AssertEqual sub_obj.args,    ''
+
+Execute (s:search:replace:gc):
+  let sub_obj = substitute#parse#substitute(':search:replace:gc')
+
+  AssertEqual sub_obj.search,  'search'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
+
+Execute (s:search\:with\:separators:replace:gc):
+  let sub_obj = substitute#parse#substitute(':search\:with\:separators:replace:gc')
+
+  AssertEqual sub_obj.search,  'search\:with\:separators'
+  AssertEqual sub_obj.replace, 'replace'
+  AssertEqual sub_obj.args,    'gc'
