@@ -9,7 +9,7 @@ With [vim-plug](https://github.com/junegunn/vim-plug) that would mean to add
 the following to your vimrc:
 
 ```vim
-Plug 'iovis9/subsitute.vim'
+Plug 'iovis9/substitute.vim'
 ```
 
 ## Usage ##
