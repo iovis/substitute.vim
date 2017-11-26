@@ -7,5 +7,11 @@ function! substitute#command(bang, args) abort
   execute 'silent grep! "' . l:grep.search . '" ' . l:grep.args
 
   " Apply substitute command to every hit
-  execute 'silent cdo! ' . l:substitute.command
+  let l:cdo_command = 'silent cdo! ' . l:substitute.command
+
+  if a:bang
+    let l:cdo_command .= ' | update'
+  endif
+
+  execute l:cdo_command
 endfunction
