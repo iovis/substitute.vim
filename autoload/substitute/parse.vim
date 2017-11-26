@@ -1,3 +1,11 @@
+function! substitute#parse#command(command) abort
+  let l:parsed_args = split(a:command, ' -- ')
+  let l:substitute_args = l:parsed_args[0]
+  let l:grep_args = get(l:parsed_args, 1, '')
+
+  return [l:substitute_args, l:grep_args]
+endfunction
+
 function! substitute#parse#substitute(command) abort
   let l:substitute = {}
 
@@ -22,7 +30,7 @@ endfunction
 
 function! substitute#parse#grep(search, grep_args) abort
   let l:grep = {}
-  let l:grep.args = escape(join(a:grep_args, ' '), '|#%')
+  let l:grep.args = escape(a:grep_args, '|#%')
 
   " translate vim regular expression to perl regular expression.
   let l:grep.very_magic = !empty(matchstr(a:search, '^\\v'))

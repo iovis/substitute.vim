@@ -1,0 +1,17 @@
+Execute (S/asdf/replace/gc):
+  let parsed_command = substitute#parse#command('/asdf/replace/gc')
+
+  AssertEqual parsed_command[0], '/asdf/replace/gc'
+  AssertEqual parsed_command[1],  ''
+
+Execute (S/asdf/replace -- -R .):
+  let parsed_command = substitute#parse#command('/asdf/replace -- -R .')
+
+  AssertEqual parsed_command[0], '/asdf/replace'
+  AssertEqual parsed_command[1],  '-R .'
+
+Execute (S/asdf fdsa/replace with spaces / -- --ruby):
+  let parsed_command = substitute#parse#command('/asdf fdsa/replace with spaces / -- --ruby')
+
+  AssertEqual parsed_command[0], '/asdf fdsa/replace with spaces /'
+  AssertEqual parsed_command[1],  '--ruby'

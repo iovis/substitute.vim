@@ -1,7 +1,7 @@
 function! substitute#command(bang, args) abort
-  let l:parsed_args = split(a:args)
-  let l:substitute = substitute#parse#substitute(l:parsed_args[0])
-  let l:grep = substitute#parse#grep(l:substitute.search, l:parsed_args[1:])
+  let [l:substitute_args, l:grep_args] = substitute#parse#command(a:args)
+  let l:substitute = substitute#parse#substitute(l:substitute_args)
+  let l:grep = substitute#parse#grep(l:substitute.search, l:grep_args)
 
   " Load hits into the quickfix window
   execute 'silent grep! "' . l:grep.search . '" ' . l:grep.args
