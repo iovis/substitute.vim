@@ -1,0 +1,124 @@
+*substitute.txt*  Perform project wide substitutions
+
+Author:  David Marchante <https://github.com/iovis9>
+License: Same terms as Vim itself (see |license|)
+Version: 1.0 (2017-11-26)
+
+This plugin is only available if 'compatible' is not set.
+
+==============================================================================
+CONTENTS                                                 *substitute-contents*
+
+    1. Usage ................ |substitute-usage|
+    2. Grep program ......... |substitute-grep-program|
+    3. Patterns ............. |substitute-patterns|
+    4. Examples ............. |substitute-examples|
+    5. Known Issues ......... |substitute-known-issues|
+    6. Bugs ................. |substitute-bugs|
+    7. Changelog ............ |substitute-changelog|
+
+==============================================================================
+USAGE                                                       *substitute-usage*
+
+Use 'substitute' as you'd use the regular |:substitute| command and append any
+optional arguments you need for 'grep' after '--'.
+
+                                                                          *:S*
+:S[!]/{pattern}/{string}/[flags] [-- [grep_arguments]]
+                      For each line matched with |:grep| for {pattern}, apply
+                      the corresponding |:substitute| command.  For the
+                      {pattern} see |pattern|.  See |:s_flags| for [flags]
+
+                      [grep_arguments] will be passed along your 'grepprg' of
+                      choice.
+
+                      With [!] it will save the results of the change on every
+                      file.
+
+==============================================================================
+GREP PROGRAM                                         *substitute-grep-program*
+
+With the default 'grep' program you'll need to specify the glob pattern for
+grep to know where to look for your {pattern}:
+>
+    :S/pattern/replacement -- **/*.rb
+    :S/pattern/replacement -- -R .
+>
+You can change the program vim uses for grep with |grepprg|:
+>
+    if executable('ag')
+      set grepprg=ag\ --vimgrep
+      set grepformat=%f:%l:%c:%m
+    endif
+>
+With 'The silver searcher' (recommended) you don't need to specify a folder
+because it'll do a recursive search by default.
+
+==============================================================================
+PATTERNS                                                 *substitute-patterns*
+
+If you use normal vim patterns they will get converted to their equivalent
+perl patterns for compatibility with grep.
+
+Example: Changing 'before :each do' to 'before(:each) do' inside the 'spec/'
+folder. First with vim's regular expressions:
+>
+    :S/\(before\)\s\+\(:\w\+\)\s\+/\1(\2) / -- --ruby
+>
+And with 'very magic' mode:
+>
+    :S/\v(before)\s+(:\w+)\s+/\1(\2) / -- --ruby
+>
+==============================================================================
+EXAMPLES                                                 *substitute-examples*
+
+Upgrade from 'FactoryGirl' to 'FactoryBot' and save (default grep):
+>
+    :S!/FactoryGirl/FactoryBot -- **/*.rb
+>
+Upgrade from 'FactoryGirl' to 'FactoryBot' and save (with ag):
+>
+    :S!/FactoryGirl/FactoryBot -- --ruby
+>
+The following examples will assume 'ag' is installed and |grepprg| was changed
+to use it.
+
+Change every instance of the last search and ask for confirmation:
+>
+    /foo
+    :S//bar/gc
+>
+Do a literal search (don't apply {pattern} to ag):
+>
+    :S/foo()/bar() -- -Q
+>
+Include VCS ignored files:
+>
+    :S/foo/bar -U
+>
+Include hidden files:
+>
+    :S/foo/bar -- --hidden
+>
+Limit the search to the folder of the current file:
+>
+    :S/foo/bar -- %:h
+>
+==============================================================================
+KNOWN ISSUES                                         *substitute-known-issues*
+
+Matching '\' at the end of your pattern will fail as it'll think it's escaping
+the separator character.
+
+==============================================================================
+BUGS                                                         *substitute-bugs*
+
+Report any issues to https://github.com/iovis9/substitute.vim/issues
+
+==============================================================================
+CHANGELOG                                               *substitute-changelog*
+
+Version 1.0: 2017-11-26
+  - Initial release
+
+ vim:tw=78:ts=8:ft=help:norl:
