@@ -1,5 +1,4 @@
-# Substitute.vim
-[![Build Status](https://travis-ci.org/iovis9/substitute.vim.svg?branch=master)](https://travis-ci.org/iovis9/substitute.vim)
+# Substitute.vim [![Build Status](https://travis-ci.org/iovis9/substitute.vim.svg?branch=master)](https://travis-ci.org/iovis9/substitute.vim)
 Perform project wide substitutions
 
 ## Installation ##
