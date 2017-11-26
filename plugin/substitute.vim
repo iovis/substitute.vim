@@ -8,4 +8,4 @@ if exists('g:substitute_loaded') || &cp || v:version < 700
 endif
 let g:substitute_loaded = 1
 
-command! -nargs=+ -bang -bar S :call substitute#command(<bang>0, <q-args>)
+command! -nargs=+ -complete=file -bang -bar S :call substitute#command(<bang>0, <q-args>)
