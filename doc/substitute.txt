@@ -1,6 +1,6 @@
 *substitute.txt*  Perform project wide substitutions
 
-Author:  David Marchante <https://github.com/iovis9>
+Author:  David Marchante <https://github.com/iovis>
 License: Same terms as Vim itself (see |license|)
 Version: 1.0 (2017-11-26)
 
@@ -113,7 +113,7 @@ the separator character.
 ==============================================================================
 BUGS                                                         *substitute-bugs*
 
-Report any issues to https://github.com/iovis9/substitute.vim/issues
+Report any issues to https://github.com/iovis/substitute.vim/issues
 
 ==============================================================================
 CHANGELOG                                               *substitute-changelog*

@@ -1,4 +1,4 @@
-# Substitute.vim [![Build Status](https://travis-ci.org/iovis9/substitute.vim.svg?branch=master)](https://travis-ci.org/iovis9/substitute.vim)
+# Substitute.vim [![Build Status](https://travis-ci.org/iovis/substitute.vim.svg?branch=master)](https://travis-ci.org/iovis/substitute.vim)
 Perform project wide substitutions
 
 ## Installation ##
@@ -9,7 +9,7 @@ With [vim-plug](https://github.com/junegunn/vim-plug) that would mean to add
 the following to your vimrc:
 
 ```vim
-Plug 'iovis9/substitute.vim'
+Plug 'iovis/substitute.vim'
 ```
 
 ## Usage ##
@@ -120,7 +120,7 @@ This won't work:
 
 ## Bugs ##
 
-Report any issues to https://github.com/iovis9/substitute.vim/issues
+Report any issues to https://github.com/iovis/substitute.vim/issues
 
 ## Changelog ##
 
