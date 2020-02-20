@@ -36,6 +36,8 @@ endfunction
 
 function! substitute#parse#grep(search, grep_args) abort
   let l:grep = {}
+
+  let l:grep.command = &grepprg
   let l:grep.args = escape(a:grep_args, '|#%')
 
   " translate vim regular expression to perl regular expression.
