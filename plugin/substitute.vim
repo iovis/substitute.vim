@@ -1,6 +1,6 @@
 " File: substitute.vim
 " Author: David Marchante
-" Description: Perform global substitutes
+" Description: Perform global substitutions
 " Last Modified: November 18, 2017
 
 if exists('g:substitute_loaded') || &cp || v:version < 700
