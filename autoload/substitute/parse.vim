@@ -9,9 +9,6 @@ endfunction
 function! substitute#parse#substitute(command) abort
   let l:substitute = {}
 
-  let l:substitute.command = 's' . a:command
-  let l:substitute.separator = l:substitute.command[1]
-
   " '\\\@<!/' => Match '/', but not '\/'
   let l:regexp = '\\\@<!'
   let l:substitute.separator = a:command[0]
@@ -27,6 +24,12 @@ function! substitute#parse#substitute(command) abort
   endif
 
   let l:substitute.global = !empty(matchstr(l:substitute.args, 'g'))
+
+  if l:substitute.global
+    let l:substitute.command = '%s' . a:command
+  else
+    let l:substitute.command = 's' . a:command
+  endif
 
   return l:substitute
 endfunction
