@@ -2,7 +2,7 @@
 
 Author:  David Marchante <https://github.com/iovis>
 License: Same terms as Vim itself (see |license|)
-Version: 1.0 (2017-11-26)
+Version: 2.0 (2020-02-20)
 
 This plugin is only available if 'compatible' is not set.
 
@@ -32,8 +32,8 @@ optional arguments you need for 'grep' after '--'.
                       [grep_arguments] will be passed along your 'grepprg' of
                       choice.
 
-                      With [!] it will save the results of the change on every
-                      file.
+                      With [!] it will try to leverage  'perl' to perform the
+                      substitution from outside vim (EXPERIMENTAL)
 
 ==============================================================================
 GREP PROGRAM                                         *substitute-grep-program*
@@ -46,12 +46,12 @@ grep to know where to look for your {pattern}:
 >
 You can change the program vim uses for grep with |grepprg|:
 >
-    if executable('ag')
-      set grepprg=ag\ --vimgrep
+    if executable('rg')
+      set grepprg=rg\ --vimgrep\ --smart-case
       set grepformat=%f:%l:%c:%m
     endif
 >
-With 'The silver searcher' (recommended) you don't need to specify a folder
+With Ripgrep (recommended) you don't need to specify a folder
 because it'll do a recursive search by default.
 
 ==============================================================================
@@ -63,24 +63,24 @@ perl patterns for compatibility with grep.
 Example: Changing 'before :each do' to 'before(:each) do' inside the 'spec/'
 folder. First with vim's regular expressions:
 >
-    :S/\(before\)\s\+\(:\w\+\)\s\+/\1(\2) / -- --ruby
+    :S/\(before\)\s\+\(:\w\+\)\s\+/\1(\2) / -- --type ruby
 >
 And with 'very magic' mode:
 >
-    :S/\v(before)\s+(:\w+)\s+/\1(\2) / -- --ruby
+    :S/\v(before)\s+(:\w+)\s+/\1(\2) / -- --type ruby
 >
 ==============================================================================
 EXAMPLES                                                 *substitute-examples*
 
 Upgrade from 'FactoryGirl' to 'FactoryBot' and save (default grep):
 >
-    :S!/FactoryGirl/FactoryBot -- **/*.rb
+    :S/FactoryGirl/FactoryBot -- **/*.rb | update
 >
-Upgrade from 'FactoryGirl' to 'FactoryBot' and save (with ag):
+Upgrade from 'FactoryGirl' to 'FactoryBot' and save (with rg):
 >
-    :S!/FactoryGirl/FactoryBot -- --ruby
+    :S/FactoryGirl/FactoryBot -- --type ruby | update
 >
-The following examples will assume 'ag' is installed and |grepprg| was changed
+The following examples will assume 'rg' is installed and |grepprg| was changed
 to use it.
 
 Change every instance of the last search and ask for confirmation:
@@ -88,17 +88,17 @@ Change every instance of the last search and ask for confirmation:
     /foo
     :S//bar/gc
 >
-Do a literal search (don't apply {pattern} to ag):
+Do a literal search (don't apply {pattern} to rg):
 >
-    :S/foo()/bar() -- -Q
+    :S/foo()/bar() -- -F
 >
 Include VCS ignored files:
 >
-    :S/foo/bar -U
+    :S/foo/bar -- -u
 >
 Include hidden files:
 >
-    :S/foo/bar -- --hidden
+    :S/foo/bar -- -uu
 >
 Limit the search to the folder of the current file:
 >
@@ -117,6 +117,10 @@ Report any issues to https://github.com/iovis/substitute.vim/issues
 
 ==============================================================================
 CHANGELOG                                               *substitute-changelog*
+
+Version 2.0: 2020-02-20
+  - Smarter substitution (choosing |cdo| or |cfdo|)
+  - Experimental perl support
 
 Version 1.0: 2017-11-26
   - Initial release
