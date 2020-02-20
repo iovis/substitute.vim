@@ -26,16 +26,13 @@ endfunction
 
 function! substitute#perl(grep, substitute) abort
   " rg "search" --files-with-matches|xargs perl -pi -e "s/search/replace/g"
-  let l:command  = '!rg "' . a:grep.search . '" --files-with-matches'
-  let l:command .= '|'
-  let l:command .= 'xargs perl -pi -e '
-  let l:command .= '"s'
-  let l:command .= a:substitute.separator
-  let l:command .= a:substitute.search
-  let l:command .= a:substitute.separator
-  let l:command .= a:substitute.replace
-  let l:command .= a:substitute.separator
-  let l:command .= 'g"'
+
+  let l:grep_command = a:grep.command . ' ' . shellescape(a:grep.search) . ' --files-with-matches ' . a:grep.args
+
+  let l:substitute_command  = 'perl -pi -e '
+  let l:substitute_command .= shellescape('s' . a:substitute.separator . a:substitute.search . a:substitute.separator . a:substitute.replace . a:substitute.separator . 'g')
+
+  let l:command = '!' . l:grep_command . '|xargs ' . l:substitute_command
 
   execute l:command
 endfunction
