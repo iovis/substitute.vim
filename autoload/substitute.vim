@@ -8,6 +8,7 @@ function! substitute#command(bang, args) abort
 
   " Apply substitute command to every file
   if a:bang
+    call substitute#sed(l:grep, l:substitute)
   else
     call substitute#vim(l:substitute)
   endif
@@ -22,4 +23,19 @@ function! substitute#vim(substitute) abort
 
   execute l:command
 endfunction
+
+function! substitute#sed(grep, substitute) abort
+  " rg "search" --files-with-matches|xargs sed -i "" -e "s/search/replace/g"
+  let l:command  = '!rg "' . a:grep.search . '" --files-with-matches'
+  let l:command .= '|'
+  let l:command .= 'xargs sed -i "" -e '
+  let l:command .= '"s'
+  let l:command .= a:substitute.separator
+  let l:command .= a:substitute.search
+  let l:command .= a:substitute.separator
+  let l:command .= a:substitute.replace
+  let l:command .= a:substitute.separator
+  let l:command .= 'g"'
+
+  execute l:command
 endfunction
