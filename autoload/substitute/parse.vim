@@ -26,6 +26,8 @@ function! substitute#parse#substitute(command) abort
     let l:substitute.search = @/
   endif
 
+  let l:substitute.global = !empty(matchstr(l:substitute.args, 'g'))
+
   return l:substitute
 endfunction
 
