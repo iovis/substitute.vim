@@ -6,12 +6,20 @@ function! substitute#command(bang, args) abort
   " Load hits into the quickfix window
   execute 'silent grep! "' . l:grep.search . '" ' . l:grep.args
 
-  " Apply substitute command to every hit
-  let l:cdo_command = 'silent cdo! ' . l:substitute.command
-
+  " Apply substitute command to every file
   if a:bang
-    let l:cdo_command .= ' | update'
+  else
+    call substitute#vim(l:substitute)
+  endif
+endfunction
+
+function! substitute#vim(substitute) abort
+  if a:substitute.global
+    let l:command = 'cfdo! ' . a:substitute.command
+  else
+    let l:command = 'cdo! ' . a:substitute.command
   endif
 
-  execute l:cdo_command
+  execute l:command
+endfunction
 endfunction
